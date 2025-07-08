@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jjtech-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/creed88/jjtech-k8s-gitops.git'
+    targetRevision: main
+    path: '.'                # relative path inside repo where your k8s manifests are
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default       # namespace to deploy into
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
